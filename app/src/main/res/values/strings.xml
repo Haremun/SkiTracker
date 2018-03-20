@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Ski Tracker</string>
+    <string name="text_ski">Ski Tracker</string>
+    <string name="text_map">Mapa</string>
+    <string name="text_history">Historia</string>
+
+    <string name="text_premium">Premium</string>
+    <string name="text_tables">Tabela wyników</string>
+    <string name="text_settings">Ustawienia</string>
+    <string name="text_others">Inne apliakcje</string>]
+    <string name="text_share">Udostępnij</string>
+    <string name="text_info">O nas</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
