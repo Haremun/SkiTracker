@@ -7,4 +7,5 @@
     <color name="skiBlue">#1b8dcc</color>
     <color name="lightSkiBlue">#9ccde9</color>
     <color name="background">#E3F2FD</color>
+    <color name="red">#F00</color>
 </resources>

@@ -19,5 +19,6 @@
     <string name="hello_blank_fragment_history">Hello blank history fragment</string>
     <string name="hello_blank_fragment_map">Hello blank map fragment</string>
 
+    <string name="google_android_map_api_key">AIzaSyCp_8hoUD0lwcsmdELrZO8DNVGitUoKMkI</string>
 
 </resources>
