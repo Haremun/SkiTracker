@@ -3,12 +3,14 @@ package com.example.kamil.skitracker.Gui;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
+import com.example.kamil.skitracker.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -28,6 +30,7 @@ public class GoogleMapGui implements OnMapReadyCallback {
 
 
     private Context context;
+    private Location location;
 
     public GoogleMapGui(MapView mapView, Context context, Bundle savedInstanceState){
 
@@ -38,6 +41,10 @@ public class GoogleMapGui implements OnMapReadyCallback {
 
     }
 
+    public void setLocation(Location location){
+        this.location = location;
+    }
+
     private void setMapGui(GoogleMap map){
 
         UiSettings settings = map.getUiSettings();
@@ -45,6 +52,8 @@ public class GoogleMapGui implements OnMapReadyCallback {
         settings.setZoomControlsEnabled(true);
         settings.setMyLocationButtonEnabled(true);
         settings.setScrollGesturesEnabled(true);
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
     }
 
     @Override
@@ -59,34 +68,30 @@ public class GoogleMapGui implements OnMapReadyCallback {
 
             googleMap.setMyLocationEnabled(true);
 
-            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            Location bestLocation = null;
-            int string = 0;
-
-            List<String> providers = locationManager.getProviders(true);
-
-            for (String provider : providers) {
-                Location location = locationManager.getLastKnownLocation(provider);
-                if (location == null) {
-                    continue;
-                }
-                if (bestLocation == null || location.getAccuracy() < bestLocation.getAccuracy()) {
-                    // Found best last known location: %s", l);
-                    bestLocation = location;
-                    string++;
-                }
-            }
-
-            Location location = bestLocation;
 
             if (location != null) {
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(location.getLatitude(), location.getLongitude())).zoom(18).build();
+                if (location.getLongitude() != 0.0){
+                    CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(location.getLatitude(), location.getLongitude())).zoom(13).build();
 
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                    googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                    //string += " Speed: " + location.hasSpeed()+" " + location.getSpeed() + " Altitude: " + location.hasAltitude()+" "  + location.getAltitude() + " ";
+                    Toast.makeText(context, location.getLongitude()+"", Toast.LENGTH_SHORT).show();
+                } else {
+                    CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(52, 21)).zoom(5).build();
+                    googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-                Toast.makeText(context, string+"", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "no gps", Toast.LENGTH_SHORT).show();
+                }
+
+            } else {
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(52, 21)).zoom(5).build();
+                googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                Toast.makeText(context, "no gps", Toast.LENGTH_SHORT).show();
             }
 
         }
     }
+
+
 }

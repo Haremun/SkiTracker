@@ -20,6 +20,7 @@ public class Permissions {
 
         /*ActivityCompat.requestPermissions(activity,
                 new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);*/
+
     }
 
 }

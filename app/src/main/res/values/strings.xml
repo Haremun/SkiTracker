@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Ski Tracker</string>
+
+    <!-- Nav buttons !-->
     <string name="text_ski">Ski Tracker</string>
     <string name="text_map">Mapa</string>
     <string name="text_history">Historia</string>
-
     <string name="text_premium">Premium</string>
     <string name="text_tables">Tabela wyników</string>
     <string name="text_settings">Ustawienia</string>
@@ -16,9 +17,12 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- Samples !-->
     <string name="hello_blank_fragment_history">Hello blank history fragment</string>
     <string name="hello_blank_fragment_map">Hello blank map fragment</string>
+    <string name="test_location">53\°7\'52\"N</string>
 
+    <!-- Keys !-->
     <string name="google_android_map_api_key">AIzaSyCp_8hoUD0lwcsmdELrZO8DNVGitUoKMkI</string>
 
 </resources>

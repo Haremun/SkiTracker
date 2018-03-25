@@ -9,6 +9,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -31,22 +32,28 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements LocationFragment {
 
+    private Location location;
+    private boolean attach = false;
 
     public MapFragment() {
         // Required empty public constructor
     }
 
+
     MapView mapView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View viewRoot = inflater.inflate(R.layout.fragment_map, container, false);
+
         mapView = viewRoot.findViewById(R.id.mapview);
+
         GoogleMapGui googleMapGui = new GoogleMapGui(mapView, getContext(), savedInstanceState);
+        googleMapGui.setLocation(location);
 
 
         return viewRoot;
@@ -68,5 +75,24 @@ public class MapFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
+    }
+
+    @Override
+    public void Update(Location location) {
+        this.location = location;
+    }
+    @Override
+    public void setAttached(boolean attach) {
+        this.attach = attach;
+    }
+
+    @Override
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    @Override
+    public boolean isAttached() {
+        return attach;
     }
 }
