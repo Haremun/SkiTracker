@@ -2,6 +2,7 @@ package com.example.kamil.skitracker;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -85,9 +86,9 @@ public class MainFragment extends Fragment implements LocationFragment {
         this.location = location;
         String[] strings = MathHelper.convertLatLngDecimalToDMS((float)this.location.getLatitude(), (float)this.location.getLongitude());
         textLen.setText(strings[0]);
-        textLen.setTextColor(getResources().getColor(R.color.black));
+        textLen.setTextColor(Color.BLACK);
         textLon.setText(strings[1]);
-        textLon.setTextColor(getResources().getColor(R.color.black));
+        textLon.setTextColor(Color.BLACK);
 
         Log.i("LocationMainFragment", "done");
     }
