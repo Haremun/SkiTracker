@@ -42,7 +42,7 @@ public class MapFragment extends Fragment implements LocationFragment {
     }
 
 
-    MapView mapView;
+    private MapView mapView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
