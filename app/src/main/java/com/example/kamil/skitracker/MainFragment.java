@@ -64,7 +64,10 @@ public class MainFragment extends Fragment implements LocationFragment {
         if(location != null){
             String[] strings = MathHelper.convertLatLngDecimalToDMS((float)this.location.getLatitude(), (float)this.location.getLongitude());
             textLen.setText(strings[0]);
+            textLen.setTextColor(getResources().getColor(R.color.black));
             textLon.setText(strings[1]);
+            textLon.setTextColor(getResources().getColor(R.color.black));
+
         }
         return rootView;
     }
@@ -82,7 +85,9 @@ public class MainFragment extends Fragment implements LocationFragment {
         this.location = location;
         String[] strings = MathHelper.convertLatLngDecimalToDMS((float)this.location.getLatitude(), (float)this.location.getLongitude());
         textLen.setText(strings[0]);
+        textLen.setTextColor(getResources().getColor(R.color.black));
         textLon.setText(strings[1]);
+        textLon.setTextColor(getResources().getColor(R.color.black));
 
         Log.i("LocationMainFragment", "done");
     }

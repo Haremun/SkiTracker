@@ -263,7 +263,8 @@
                 android:paddingEnd="0dp"
                 android:paddingStart="0dp"
                 android:text="@string/test_location"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:textColor="@color/white"/>
             <TextView
                 style="@style/lin"
                 android:id="@+id/textLongitude"
@@ -271,8 +272,7 @@
                 android:paddingStart="0dp"
                 android:text="@string/test_location"
                 android:textSize="14sp"
-
-                />
+                android:textColor="@color/white"/>
 
             <ImageView
                 android:src="@drawable/ic_camera"
