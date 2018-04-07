@@ -17,10 +17,6 @@ public class LocationInfo {
 
     private int numberOfUpdates = 0;
 
-    public LocationInfo(){
-
-    }
-
     public void Update(Location location, double time){
         numberOfUpdates++;
 

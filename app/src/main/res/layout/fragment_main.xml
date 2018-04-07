@@ -54,7 +54,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -230,7 +231,7 @@
         <android.support.v7.widget.CardView style="@style/CardStyle" android:layout_height="match_parent">
 
             <LinearLayout
-                style="@style/CardWrapper">>
+                style="@style/CardWrapper">
                 <TextView
                     style="@style/header"
                     android:text="@string/text_wysokosc"/>
@@ -292,14 +293,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="FAST RIDE"
+                android:text="@string/text_fast_ride"
                 android:textColor="@android:color/holo_orange_dark"
                 android:gravity="top" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
                 <LinearLayout
                     style="@style/CardWrapper"
                     android:layout_weight="1">
@@ -352,7 +354,7 @@
             <ImageView
                 android:src="@drawable/ic_share"
                 style="@style/OneOfFour"
-                />
+                android:contentDescription="@string/text_share"/>
 
             <TextView
                 style="@style/OneOfFour"
@@ -374,7 +376,7 @@
             <ImageView
                 android:src="@drawable/ic_camera"
                 style="@style/OneOfFour"
-                />
+                android:contentDescription="@string/text_camera"/>
         </LinearLayout>
 
 
