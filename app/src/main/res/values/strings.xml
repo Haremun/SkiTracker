@@ -11,6 +11,7 @@
     <string name="text_others">Inne apliakcje</string>]
     <string name="text_share">Udostępnij</string>
     <string name="text_info">O nas</string>
+    <string name="text_play">Play</string>
 
     <string name="text_data">22.22.2222</string>
 
@@ -46,5 +47,6 @@
     <string name="text_0_wysokosc">0 m n.p.m</string>
     <string name="text_max">Max</string>
     <string name="text_min">Min</string>
+
 
 </resources>
