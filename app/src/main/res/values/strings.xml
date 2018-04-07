@@ -48,5 +48,8 @@
     <string name="text_max">Max</string>
     <string name="text_min">Min</string>
 
+    <!-- units !-->
+    <string name="unit_distance"> km</string>
+    <string name="unit_speed"> km/h</string>
 
 </resources>

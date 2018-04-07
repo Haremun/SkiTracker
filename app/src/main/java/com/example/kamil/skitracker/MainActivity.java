@@ -125,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                for(int i = 0; i < navigationView.getMenu().size(); i++){
+                    navigationView.getMenu().getItem(i).setChecked(false);
+                }
                 switch (item.getItemId()){
                     case R.id.action_ski:{
                         MainFragment mainFragment = new MainFragment();
@@ -202,13 +205,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        locationOptions.startUpdates();
+        //locationOptions.startUpdates();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        locationOptions.stopUpdates();
+        //locationOptions.stopUpdates();
     }
 }
 

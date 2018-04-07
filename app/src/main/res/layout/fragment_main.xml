@@ -49,12 +49,10 @@
                 android:layout_marginLeft="15dp"
                 android:orientation="vertical">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/header"
                     android:text="@string/max_speed_text"/>
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextViewBigger"
                     android:id="@+id/textMaxSpeed"
                     android:text="@string/max_speed"/>
                 <LinearLayout
@@ -114,13 +112,11 @@
                 android:layout_marginLeft="15dp"
                 android:orientation="vertical">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/header"
                     android:text="@string/text_dyst"/>
                 <TextView
                     android:id="@+id/textDystans"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextViewBigger"
                     android:text="@string/text_0_dyst"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -181,12 +177,10 @@
                 android:layout_marginLeft="15dp"
                 android:orientation="vertical">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/header"
                     android:text="@string/text_czas"/>
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextViewBigger"
                     android:text="@string/time_0"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -254,12 +248,10 @@
                 android:layout_marginLeft="15dp"
                 android:orientation="vertical">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/header"
                     android:text="@string/text_wysokosc"/>
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextViewBigger"
                     android:text="@string/text_0_wysokosc"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -333,20 +325,16 @@
                     android:layout_marginStart="15dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Max prędkość"
-                        android:textAllCaps="true"/>
+                        style="@style/header"
+                        android:text="@string/max_speed_text"/>
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0,0 km/h"
-                        android:textAllCaps="true"/>
+                        style="@style/TextViewBigger"
+                        android:text="@string/text_0"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sr. pręd.     0,0 km/h"/>
+                        android:text="@string/av_speed"/>
 
                 </LinearLayout>
 
@@ -359,20 +347,16 @@
                     android:layout_marginStart="15dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Czas"
-                        android:textAllCaps="true"/>
+                        style="@style/header"
+                        android:text="@string/text_czas"/>
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="00:00:00"
-                        android:textAllCaps="true"/>
+                        style="@style/TextViewBigger"
+                        android:text="@string/time_0"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dystans     0,0 km"/>
+                        android:text="@string/text_0_dyst"/>
 
                 </LinearLayout>
             </LinearLayout>

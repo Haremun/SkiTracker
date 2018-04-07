@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -92,28 +93,47 @@ public class MainFragment extends Fragment implements LocationFragment {
         textLon.setText(strings[1]);
         textLon.setTextColor(Color.BLACK);
 
-        String maxSpeed = locationInfo.getMaxSpeed() +" km/h";
-        final SpannableString spannableString = new SpannableString(maxSpeed);
-        int position = 0;
-        spannableString.setSpan(new RelativeSizeSpan(1.5f), position,  position + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        String title = locationInfo.getDistance() + " km";
-        final SpannableString span = new SpannableString(title);
-        span.setSpan(new RelativeSizeSpan(1.5f), position,  position + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        textDistance.setText(span, TextView.BufferType.SPANNABLE);
+        textDistance.setText(convertToSpannableString(locationInfo.getDistance(), 1), TextView.BufferType.SPANNABLE);
         textDistance.setTextColor(Color.BLACK);
 
-        textMaxSpeed.setText(spannableString, TextView.BufferType.SPANNABLE);
+        textMaxSpeed.setText(convertToSpannableString(locationInfo.getMaxSpeed(), 0), TextView.BufferType.SPANNABLE);
         textMaxSpeed.setTextColor(Color.BLACK);
 
-        textAvSpeed.setText(locationInfo.getAverageSpeed() + " km/h");
+        textAvSpeed.setText(convertToStringWithUnit(locationInfo.getAverageSpeed(), 0));
         textAvSpeed.setTextColor(Color.BLACK);
 
-        textCurrentSpeed.setText(locationInfo.getCurrentSpeed()+" km/h");
+        textCurrentSpeed.setText(convertToStringWithUnit(locationInfo.getCurrentSpeed(), 0));
         textCurrentSpeed.setTextColor(Color.BLACK);
 
         Log.i("LocationMainFragment", "Done Update");
+    }
+
+    private SpannableString convertToSpannableString(double number, int unit){
+
+        int end = 1;
+        SpannableString spannableString;
+        if(unit == 0)
+            spannableString = new SpannableString(String.format(Locale.US, "%.1f", number) + " km/h");
+        else if(unit == 1)
+            spannableString = new SpannableString(String.format(Locale.US, "%.1f", number) + " km");
+        else
+            spannableString = new SpannableString(String.format(Locale.US, "%.1f", number));
+        if(number > 9)
+            end = 2;
+        else if (number > 99)
+            end = 3;
+
+        spannableString.setSpan(new RelativeSizeSpan(1.5f), 0, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
+
+    private String convertToStringWithUnit(double number, int unit){
+        if(unit == 0)
+            return String.format(Locale.US, "%.1f",number) + " km/h";
+        else if (unit == 1)
+            return String.format(Locale.US, "%.1f",number) + " km";
+        else
+            return String.format(Locale.US, "%.1f",number);
     }
 
     @Override
