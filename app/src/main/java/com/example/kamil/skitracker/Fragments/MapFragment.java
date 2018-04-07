@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.kamil.skitracker.Gui.GoogleMapGui;
 import com.example.kamil.skitracker.LocationFragment;
 import com.example.kamil.skitracker.LocationInfo;
+import com.example.kamil.skitracker.LocationOptions;
 import com.example.kamil.skitracker.Permissions.Permissions;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,7 +38,7 @@ import java.util.List;
 public class MapFragment extends Fragment implements LocationFragment {
 
     private Location location;
-    private boolean attach = false;
+    private LocationOptions locationOptions;
 
     public MapFragment() {
         // Required empty public constructor
@@ -49,6 +50,8 @@ public class MapFragment extends Fragment implements LocationFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        locationOptions.setCurrentFragment(this);
 
         View viewRoot = inflater.inflate(com.example.kamil.skitracker.R.layout.fragment_map, container, false);
 
@@ -83,23 +86,11 @@ public class MapFragment extends Fragment implements LocationFragment {
     public void Update(LocationInfo locationInfo) {
         this.location = locationInfo.getCurrentLocation();
     }
-    @Override
-    public void setAttached(boolean attach) {
-        this.attach = attach;
-    }
 
     @Override
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocation(LocationOptions locationOptions) {
+        this.location = locationOptions.getLocation();
+        this.locationOptions = locationOptions;
     }
 
-    @Override
-    public void setLocationInfo(LocationInfo locationInfo) {
-
-    }
-
-    @Override
-    public boolean isAttached() {
-        return attach;
-    }
 }

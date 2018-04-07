@@ -65,4 +65,6 @@ public class LocationInfo {
     public Location getCurrentLocation() {
         return currentLocation;
     }
+
+
 }

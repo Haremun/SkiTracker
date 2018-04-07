@@ -48,9 +48,12 @@ public class LocationOptions {
     private LocationCallback callback;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
+    private long timeOfUpdates = 0;
+    private boolean startTimers = false;
+
     private double newTime = 0;
 
-    public LocationOptions(Context context, Activity activity) {
+    LocationOptions(Context context, Activity activity) {
 
         this.context = context;
 
@@ -84,7 +87,6 @@ public class LocationOptions {
     public void setCurrentFragment(LocationFragment locationFragment) {
 
         this.currentFragment = locationFragment;
-        this.currentFragment.setLocationInfo(locationInfo);
 
     }
 
@@ -127,6 +129,22 @@ public class LocationOptions {
 
         fusedLocationProviderClient.removeLocationUpdates(callback);
 
+    }
+
+    public void setTimeOfUpdates(long timeOfUpdates) {
+        this.timeOfUpdates = timeOfUpdates;
+    }
+
+    public long getTimeOfUpdates() {
+        return timeOfUpdates;
+    }
+
+    public void setStartTimers(boolean startTimers) {
+        this.startTimers = startTimers;
+    }
+
+    public boolean timerStarted() {
+        return startTimers;
     }
 
     private void requestToTurnOnLocation(final Activity activity){

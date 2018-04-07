@@ -37,6 +37,22 @@
         <item name="android:layout_marginStart">15dp</item>
         <item name="android:orientation">vertical</item>
     </style>
+    <style name="InnerWrapper">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="LeftColumnWrapper">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginEnd">10dp</item>
+    </style>
+    <style name="RightColumnWrapper">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
 
     <style name="OneOfFour">
         <item name="android:layout_gravity">center</item>

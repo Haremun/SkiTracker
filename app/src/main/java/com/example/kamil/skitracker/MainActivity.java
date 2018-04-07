@@ -53,9 +53,8 @@ public class MainActivity extends AppCompatActivity {
         SetNavigationViewListener();
         SetBottomNavigationViewListener();
 
-        final MainFragment mainFragment = new MainFragment();
-        locationOptions.setCurrentFragment(mainFragment);
-        mainFragment.setLocation(locationOptions.getLocation());
+        MainFragment mainFragment = new MainFragment();
+        mainFragment.setLocation(locationOptions);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, mainFragment);
         transaction.commit();
@@ -88,8 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.action_ski:{
                         MainFragment mainFragment = new MainFragment();
-                        locationOptions.setCurrentFragment(mainFragment);
-                        mainFragment.setLocation(locationOptions.getLocation());
+                        mainFragment.setLocation(locationOptions);
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.fragment_container, mainFragment);
                         transaction.commit();
@@ -98,8 +96,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case R.id.action_map:{
                         MapFragment mapFragment = new MapFragment();
-                        locationOptions.setCurrentFragment(mapFragment);
-                        mapFragment.setLocation(locationOptions.getLocation());
+                        mapFragment.setLocation(locationOptions);
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.fragment_container, mapFragment);
                         transaction.commit();
@@ -134,8 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.action_ski:{
                         MainFragment mainFragment = new MainFragment();
-                        locationOptions.setCurrentFragment(mainFragment);
-                        mainFragment.setLocation(locationOptions.getLocation());
+                        mainFragment.setLocation(locationOptions);
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.fragment_container, mainFragment);
                         transaction.commit();
@@ -145,8 +141,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case R.id.action_map:{
                         MapFragment mapFragment = new MapFragment();
-                        locationOptions.setCurrentFragment(mapFragment);
-                        mapFragment.setLocation(locationOptions.getLocation());
+                        mapFragment.setLocation(locationOptions);
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.fragment_container, mapFragment);
                         transaction.commit();
@@ -180,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
@@ -194,13 +189,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.action_bar_menu, menu);
 
         return super.onCreateOptionsMenu(menu);
     }

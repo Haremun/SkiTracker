@@ -5,19 +5,26 @@ import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.format.DateFormat;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import com.example.kamil.skitracker.LocationFragment;
 import com.example.kamil.skitracker.LocationInfo;
+import com.example.kamil.skitracker.LocationOptions;
 import com.example.kamil.skitracker.MathHelper;
 import com.example.kamil.skitracker.R;
 
@@ -39,18 +46,25 @@ public class MainFragment extends Fragment implements LocationFragment {
     }
 
     private Location location;
+    private LocationOptions locationOptions;
+
     private TextView textLen;
     private TextView textLon;
     private TextView textMaxSpeed;
     private TextView textCurrentSpeed;
     private TextView textAvSpeed;
     private TextView textDistance;
-    private boolean attach = false;
+
+    private Chronometer chronometer;
+
     //private LocationInfo locationInfo;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+
+        locationOptions.setCurrentFragment(this);
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -63,7 +77,22 @@ public class MainFragment extends Fragment implements LocationFragment {
         textLon = rootView.findViewById(R.id.textLongitude);
         textDistance = rootView.findViewById(R.id.textDystans);
 
+        chronometer = rootView.findViewById(R.id.chronometer_time);
+        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            public void onChronometerTick(Chronometer cArg) {
+                long time = SystemClock.elapsedRealtime() - cArg.getBase();
+                int h = (int)(time / 3600000);
+                int m = (int)(time - h * 3600000) / 60000;
+                int s = (int)(time - h * 3600000 - m * 60000) / 1000 ;
 
+                cArg.setText(getStringFromTime(h, m, s));
+            }
+        });
+
+        if (locationOptions.timerStarted()){
+            chronometer.setBase(locationOptions.getTimeOfUpdates());
+            chronometer.start();
+        }
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.mm.yyyy", Locale.getDefault());
         textView.setText(simpleDateFormat.format(Calendar.getInstance().getTime()));
@@ -75,17 +104,10 @@ public class MainFragment extends Fragment implements LocationFragment {
             textLen.setTextColor(getResources().getColor(R.color.black));
             textLon.setText(strings[1]);
             textLon.setTextColor(getResources().getColor(R.color.black));
-            Log.i("Tag", "Location on Create view");
+            Log.i("MainFragment", "Location on Create view");
 
         }
         return rootView;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-
     }
 
     @Override
@@ -110,7 +132,38 @@ public class MainFragment extends Fragment implements LocationFragment {
         textCurrentSpeed.setText(convertToStringWithUnit(locationInfo.getCurrentSpeed(), 0));
         textCurrentSpeed.setTextColor(Color.BLACK);
 
-        Log.i("LocationMainFragment", "Done Update");
+        Log.i("MainFragment", "Done Update");
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.action_bar_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_play:{
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                chronometer.start();
+
+                locationOptions.setTimeOfUpdates(SystemClock.elapsedRealtime());
+                locationOptions.setStartTimers(true);
+                locationOptions.startUpdates();
+                Log.i("MainFragment", "Button Clicked");
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setLocation(LocationOptions locationOptions) {
+        this.location = locationOptions.getLocation();
+        this.locationOptions = locationOptions;
+        Log.i("Tag", "Loc set");
     }
 
     private SpannableString convertToSpannableString(double number, int unit){
@@ -141,24 +194,12 @@ public class MainFragment extends Fragment implements LocationFragment {
             return String.format(Locale.US, "%.1f",number);
     }
 
-    @Override
-    public void setAttached(boolean attach) {
-        this.attach = attach;
+    private String getStringFromTime(int hours, int minutes, int seconds){
+        String hh = hours < 10 ? "0" + hours : hours + "";
+        String mm = minutes < 10 ? "0" + minutes : minutes + "";
+        String ss = seconds < 10 ? "0" + seconds : seconds + "";
+        return hh + ":" + mm + ":" + ss;
     }
 
-    @Override
-    public void setLocation(Location location) {
-        this.location = location;
-        Log.i("Tag", "Loc set");
-    }
-
-    @Override
-    public void setLocationInfo(LocationInfo locationInfo) {
-        //this.locationInfo = locationInfo;
-    }
-
-    @Override
-    public boolean isAttached() {
-        return attach;
-    }
 }
+
