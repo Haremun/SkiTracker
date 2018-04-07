@@ -20,6 +20,9 @@ import android.support.v7.widget.Toolbar;
 
 import android.os.Bundle;
 
+import com.example.kamil.skitracker.Fragments.HistoryFragment;
+import com.example.kamil.skitracker.Fragments.MainFragment;
+import com.example.kamil.skitracker.Fragments.MapFragment;
 import com.example.kamil.skitracker.Permissions.Permissions;
 
 

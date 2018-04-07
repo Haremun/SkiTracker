@@ -1,4 +1,4 @@
-package com.example.kamil.skitracker;
+package com.example.kamil.skitracker.Fragments;
 
 
 import android.*;
@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.kamil.skitracker.Gui.GoogleMapGui;
+import com.example.kamil.skitracker.LocationFragment;
+import com.example.kamil.skitracker.LocationInfo;
 import com.example.kamil.skitracker.Permissions.Permissions;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -48,9 +50,9 @@ public class MapFragment extends Fragment implements LocationFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View viewRoot = inflater.inflate(R.layout.fragment_map, container, false);
+        View viewRoot = inflater.inflate(com.example.kamil.skitracker.R.layout.fragment_map, container, false);
 
-        mapView = viewRoot.findViewById(R.id.mapview);
+        mapView = viewRoot.findViewById(com.example.kamil.skitracker.R.id.mapview);
 
         GoogleMapGui googleMapGui = new GoogleMapGui(mapView, getContext(), savedInstanceState);
         googleMapGui.setLocation(location);

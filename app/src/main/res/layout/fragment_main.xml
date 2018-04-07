@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.kamil.skitracker.MainFragment"
+    tools:context="com.example.kamil.skitracker.Fragments.MainFragment"
     android:background="@color/blueBackground"
     android:paddingTop="?attr/actionBarSize"
     android:paddingBottom="?attr/actionBarSize">
@@ -43,11 +43,7 @@
         <android.support.v7.widget.CardView  style="@style/CardStyle">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="2.5dp"
-                android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                style="@style/CardWrapper">
                 <TextView
                     style="@style/header"
                     android:text="@string/max_speed_text"/>
@@ -106,11 +102,7 @@
         <android.support.v7.widget.CardView style="@style/CardStyle">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="2.5dp"
-                android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                style="@style/CardWrapper">
                 <TextView
                     style="@style/header"
                     android:text="@string/text_dyst"/>
@@ -171,11 +163,7 @@
         <android.support.v7.widget.CardView style="@style/CardStyle">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="2.5dp"
-                android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                style="@style/CardWrapper">
                 <TextView
                     style="@style/header"
                     android:text="@string/text_czas"/>
@@ -242,11 +230,7 @@
         <android.support.v7.widget.CardView style="@style/CardStyle" android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="2.5dp"
-                android:layout_marginLeft="15dp"
-                android:orientation="vertical">
+                style="@style/CardWrapper">>
                 <TextView
                     style="@style/header"
                     android:text="@string/text_wysokosc"/>
@@ -317,12 +301,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:padding="2.5dp"
-                    android:layout_marginStart="15dp">
+                    style="@style/CardWrapper"
+                    android:layout_weight="1">
 
                     <TextView
                         style="@style/header"
@@ -339,12 +319,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:padding="2.5dp"
-                    android:layout_marginStart="15dp">
+                    style="@style/CardWrapper"
+                    android:layout_weight="1">
 
                     <TextView
                         style="@style/header"
@@ -375,11 +351,11 @@
 
             <ImageView
                 android:src="@drawable/ic_share"
-                style="@style/lin"
+                style="@style/OneOfFour"
                 />
 
             <TextView
-                style="@style/lin"
+                style="@style/OneOfFour"
                 android:id="@+id/textLen"
                 android:paddingEnd="0dp"
                 android:paddingStart="0dp"
@@ -387,7 +363,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/white"/>
             <TextView
-                style="@style/lin"
+                style="@style/OneOfFour"
                 android:id="@+id/textLongitude"
                 android:paddingEnd="0dp"
                 android:paddingStart="0dp"
@@ -397,7 +373,7 @@
 
             <ImageView
                 android:src="@drawable/ic_camera"
-                style="@style/lin"
+                style="@style/OneOfFour"
                 />
         </LinearLayout>
 

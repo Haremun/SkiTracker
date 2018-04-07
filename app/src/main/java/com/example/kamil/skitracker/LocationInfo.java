@@ -5,8 +5,9 @@ import android.util.Log;
 
 public class LocationInfo {
 
-    private Location oldLocation;
-    private Location newLocation;
+    private double currentLatitude = 0;
+    private double currentLongitude = 0;
+    private Location currentLocation;
 
     private double currentSpeed = 0;
     private double maxSpeed = 0;
@@ -23,13 +24,11 @@ public class LocationInfo {
     public void Update(Location location, double time){
         numberOfUpdates++;
 
-        if(newLocation != null)
-            oldLocation = newLocation;
-        newLocation = location;
+        this.currentLocation = location;
 
-        long tempDistance = 0;
-        if(newLocation != null && oldLocation != null)
-            tempDistance = (long) MathHelper.calculateDistance(oldLocation.getLatitude(), oldLocation.getLongitude(), newLocation.getLatitude(), newLocation.getLongitude());
+        double tempDistance = 0;
+        if(currentLatitude > 0)
+            tempDistance = MathHelper.calculateDistance(currentLatitude, currentLongitude, location.getLatitude(), location.getLongitude());
 
         oldSpeed += currentSpeed;
         distance += tempDistance / 1000;
@@ -39,13 +38,16 @@ public class LocationInfo {
             currentSpeed = (tempDistance / 1000) / timeInHours;
         //currentSpeed = 24044.04;
 
-        averageSpeed = (currentSpeed + oldSpeed)/numberOfUpdates;
+        averageSpeed = (currentSpeed + oldSpeed)/numberOfUpdates; //To think about
 
         if(currentSpeed > maxSpeed)
             maxSpeed = currentSpeed;
 
-        if(oldLocation != null)
-         Log.i("LocInfo", "Updated! currentSpeed: " + currentSpeed + " distance: " + tempDistance + " time: " + timeInHours);
+        if(location != null){
+            currentLatitude = location.getLatitude();
+            currentLongitude = location.getLongitude();
+        }
+        Log.i("LocInfo", "Updated! currentSpeed: " + currentSpeed + " distance: " + tempDistance + " time: " + timeInHours);
     }
 
     public double getCurrentSpeed(){
@@ -65,6 +67,6 @@ public class LocationInfo {
     }
 
     public Location getCurrentLocation() {
-        return newLocation;
+        return currentLocation;
     }
 }

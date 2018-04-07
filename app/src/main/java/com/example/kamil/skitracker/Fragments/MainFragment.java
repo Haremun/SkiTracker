@@ -1,4 +1,4 @@
-package com.example.kamil.skitracker;
+package com.example.kamil.skitracker.Fragments;
 
 
 import android.content.Context;
@@ -15,6 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.kamil.skitracker.LocationFragment;
+import com.example.kamil.skitracker.LocationInfo;
+import com.example.kamil.skitracker.MathHelper;
+import com.example.kamil.skitracker.R;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;

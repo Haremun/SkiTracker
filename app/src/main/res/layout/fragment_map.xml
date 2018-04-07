@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.kamil.skitracker.MapFragment"
+    tools:context="com.example.kamil.skitracker.Fragments.MapFragment"
     android:background="@color/blueBackground"
     android:paddingTop="?attr/actionBarSize"
     android:paddingBottom="?attr/actionBarSize">
