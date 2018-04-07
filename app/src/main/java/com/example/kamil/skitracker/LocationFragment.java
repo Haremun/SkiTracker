@@ -8,9 +8,11 @@ import android.location.Location;
 
 public interface LocationFragment {
 
-    void Update(Location location);
+    void Update(LocationInfo locationInfo);
     void setAttached(boolean attach);
     void setLocation(Location location);
+    void setLocationInfo(LocationInfo locationInfo);
     boolean isAttached();
+
 
 }

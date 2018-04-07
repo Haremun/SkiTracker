@@ -78,8 +78,8 @@ public class MapFragment extends Fragment implements LocationFragment {
     }
 
     @Override
-    public void Update(Location location) {
-        this.location = location;
+    public void Update(LocationInfo locationInfo) {
+        this.location = locationInfo.getCurrentLocation();
     }
     @Override
     public void setAttached(boolean attach) {
@@ -89,6 +89,11 @@ public class MapFragment extends Fragment implements LocationFragment {
     @Override
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    @Override
+    public void setLocationInfo(LocationInfo locationInfo) {
+
     }
 
     @Override

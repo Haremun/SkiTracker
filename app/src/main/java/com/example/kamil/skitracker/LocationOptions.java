@@ -40,6 +40,7 @@ import java.util.List;
 public class LocationOptions {
 
     private LocationFragment currentFragment;
+    private LocationInfo locationInfo;
     private Location myLocation;
     private Context context;
 
@@ -47,14 +48,17 @@ public class LocationOptions {
     private LocationCallback callback;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
+    private double newTime = 0;
 
     public LocationOptions(Context context, Activity activity) {
 
         this.context = context;
 
+        this.locationInfo = new LocationInfo();
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
         callback = createLocationCallback();
-        locationRequest = createLocationRequest(10000, 5000, LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        locationRequest = createLocationRequest(1000, 500, LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -80,6 +84,7 @@ public class LocationOptions {
     public void setCurrentFragment(LocationFragment locationFragment) {
 
         this.currentFragment = locationFragment;
+        this.currentFragment.setLocationInfo(locationInfo);
 
     }
 
@@ -100,7 +105,10 @@ public class LocationOptions {
                     return;
                 }
                 for (Location location : locationResult.getLocations()) {
-                    currentFragment.Update(location);
+                    double oldTime = newTime;
+                    newTime = System.currentTimeMillis();
+                    locationInfo.Update(location, newTime - oldTime);
+                    currentFragment.Update(locationInfo);
                     myLocation = location;
                 }
             }

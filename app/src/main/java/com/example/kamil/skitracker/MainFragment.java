@@ -35,7 +35,12 @@ public class MainFragment extends Fragment implements LocationFragment {
     private Location location;
     private TextView textLen;
     private TextView textLon;
+    private TextView textMaxSpeed;
+    private TextView textCurrentSpeed;
+    private TextView textAvSpeed;
+    private TextView textDistance;
     private boolean attach = false;
+    //private LocationInfo locationInfo;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -44,30 +49,27 @@ public class MainFragment extends Fragment implements LocationFragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         TextView textView = rootView.findViewById(R.id.textViewDate);
-        TextView textView1 = rootView.findViewById(R.id.textDystans);
 
+        textMaxSpeed = rootView.findViewById(R.id.textMaxSpeed);
+        textCurrentSpeed = rootView.findViewById(R.id.textCurrentSpeed);
+        textAvSpeed = rootView.findViewById(R.id.textAvSpeed);
         textLen = rootView.findViewById(R.id.textLen);
         textLon = rootView.findViewById(R.id.textLongitude);
+        textDistance = rootView.findViewById(R.id.textDystans);
 
-        String title = "0,0 km/h";
 
-        final SpannableString spannableString = new SpannableString(title);
-        int position = 0;
-
-        spannableString.setSpan(new RelativeSizeSpan(1.5f), position,  position + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        textView1.setText(spannableString, TextView.BufferType.SPANNABLE);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.mm.yyyy", Locale.getDefault());
         textView.setText(simpleDateFormat.format(Calendar.getInstance().getTime()));
 
-        Log.i("Tag", "Create view");
+
         if(location != null){
             String[] strings = MathHelper.convertLatLngDecimalToDMS((float)this.location.getLatitude(), (float)this.location.getLongitude());
             textLen.setText(strings[0]);
             textLen.setTextColor(getResources().getColor(R.color.black));
             textLon.setText(strings[1]);
             textLon.setTextColor(getResources().getColor(R.color.black));
+            Log.i("Tag", "Location on Create view");
 
         }
         return rootView;
@@ -81,16 +83,37 @@ public class MainFragment extends Fragment implements LocationFragment {
     }
 
     @Override
-    public void Update(Location location) {
+    public void Update(LocationInfo locationInfo) {
 
-        this.location = location;
+        this.location = locationInfo.getCurrentLocation();
         String[] strings = MathHelper.convertLatLngDecimalToDMS((float)this.location.getLatitude(), (float)this.location.getLongitude());
         textLen.setText(strings[0]);
         textLen.setTextColor(Color.BLACK);
         textLon.setText(strings[1]);
         textLon.setTextColor(Color.BLACK);
 
-        Log.i("LocationMainFragment", "done");
+        String maxSpeed = locationInfo.getMaxSpeed() +" km/h";
+        final SpannableString spannableString = new SpannableString(maxSpeed);
+        int position = 0;
+        spannableString.setSpan(new RelativeSizeSpan(1.5f), position,  position + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        String title = locationInfo.getDistance() + " km";
+        final SpannableString span = new SpannableString(title);
+        span.setSpan(new RelativeSizeSpan(1.5f), position,  position + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        textDistance.setText(span, TextView.BufferType.SPANNABLE);
+        textDistance.setTextColor(Color.BLACK);
+
+        textMaxSpeed.setText(spannableString, TextView.BufferType.SPANNABLE);
+        textMaxSpeed.setTextColor(Color.BLACK);
+
+        textAvSpeed.setText(locationInfo.getAverageSpeed() + " km/h");
+        textAvSpeed.setTextColor(Color.BLACK);
+
+        textCurrentSpeed.setText(locationInfo.getCurrentSpeed()+" km/h");
+        textCurrentSpeed.setTextColor(Color.BLACK);
+
+        Log.i("LocationMainFragment", "Done Update");
     }
 
     @Override
@@ -102,6 +125,11 @@ public class MainFragment extends Fragment implements LocationFragment {
     public void setLocation(Location location) {
         this.location = location;
         Log.i("Tag", "Loc set");
+    }
+
+    @Override
+    public void setLocationInfo(LocationInfo locationInfo) {
+        //this.locationInfo = locationInfo;
     }
 
     @Override

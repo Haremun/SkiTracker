@@ -25,4 +25,26 @@
     <!-- Keys !-->
     <string name="google_android_map_api_key">AIzaSyCp_8hoUD0lwcsmdELrZO8DNVGitUoKMkI</string>
 
+    <!-- Main Fragment Texts !-->
+    <string name="max_speed_text">MAX PRĘDKOŚĆ</string>
+    <string name="max_speed">0,0 km/h</string>
+    <string name="av_speed">Sr. pręd.</string>
+    <string name="curr_speed">Prędkość</string>
+    <string name="text_0">0,0 km/h</string>
+
+    <string name="text_dyst">DYSTANS ZJAZDÓW</string>
+    <string name="text_Zjazdy">Zjazdy</string>
+    <string name="text_wyjazdy">Wyjazdy</string>
+    <string name="text_odpoczynek">Odpoczynek</string>
+    <string name="text_łącznie">Łącznie</string>
+    <string name="text_0_dyst">0,0 km</string>
+
+    <string name="text_czas">CZAS</string>
+    <string name="time_0">00:00:00</string>
+
+    <string name="text_wysokosc">WYSOKOŚĆ</string>
+    <string name="text_0_wysokosc">0 m n.p.m</string>
+    <string name="text_max">Max</string>
+    <string name="text_min">Min</string>
+
 </resources>
