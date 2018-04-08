@@ -1,7 +1,6 @@
 package com.example.kamil.skitracker.Fragments;
 
 
-import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.format.DateFormat;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,17 +20,23 @@ import android.view.ViewGroup;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import com.example.kamil.skitracker.GoogleElevationThread;
 import com.example.kamil.skitracker.LocationFragment;
 import com.example.kamil.skitracker.LocationInfo;
 import com.example.kamil.skitracker.LocationOptions;
 import com.example.kamil.skitracker.MathHelper;
 import com.example.kamil.skitracker.R;
 
-import java.text.DecimalFormat;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.concurrent.TimeoutException;
+import java.util.Objects;
 
 
 /**
@@ -54,10 +58,13 @@ public class MainFragment extends Fragment implements LocationFragment {
     private TextView textCurrentSpeed;
     private TextView textAvSpeed;
     private TextView textDistance;
+    private TextView textElevation;
 
     private Chronometer chronometer;
+    private GoogleElevationThread googleElevationThread;
 
     //private LocationInfo locationInfo;
+    private boolean checkElevation = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -76,8 +83,13 @@ public class MainFragment extends Fragment implements LocationFragment {
         textLen = rootView.findViewById(R.id.textLen);
         textLon = rootView.findViewById(R.id.textLongitude);
         textDistance = rootView.findViewById(R.id.textDystans);
+        textElevation = rootView.findViewById(R.id.text_elevation);
+
+        textMaxSpeed.setText(convertToSpannableString(0, 0), TextView.BufferType.SPANNABLE);
+        textDistance.setText(convertToSpannableString(0, 1), TextView.BufferType.SPANNABLE);
 
         chronometer = rootView.findViewById(R.id.chronometer_time);
+        chronometer.setText("00:00:00");
         chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             public void onChronometerTick(Chronometer cArg) {
                 long time = SystemClock.elapsedRealtime() - cArg.getBase();
@@ -105,9 +117,26 @@ public class MainFragment extends Fragment implements LocationFragment {
             textLon.setText(strings[1]);
             textLon.setTextColor(getResources().getColor(R.color.black));
             Log.i("MainFragment", "Location on Create view");
-
         }
+
+
+        googleElevationThread = new GoogleElevationThread(getActivity(), locationOptions, 5);
+        googleElevationThread.start();
+
+
         return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        try {
+            googleElevationThread.interrupt();
+            googleElevationThread.stopMe();
+            googleElevationThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        super.onDestroyView();
     }
 
     @Override
@@ -132,6 +161,9 @@ public class MainFragment extends Fragment implements LocationFragment {
         textCurrentSpeed.setText(convertToStringWithUnit(locationInfo.getCurrentSpeed(), 0));
         textCurrentSpeed.setTextColor(Color.BLACK);
 
+        //textElevation.setText(lookingForAltitude(location.getLatitude(), location.getLongitude()));
+        //textElevation.setTextColor(Color.BLACK);
+
         Log.i("MainFragment", "Done Update");
     }
 
@@ -148,7 +180,7 @@ public class MainFragment extends Fragment implements LocationFragment {
             case R.id.action_play:{
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
-
+                //runElevationThread();
                 locationOptions.setTimeOfUpdates(SystemClock.elapsedRealtime());
                 locationOptions.setStartTimers(true);
                 locationOptions.startUpdates();
@@ -199,6 +231,26 @@ public class MainFragment extends Fragment implements LocationFragment {
         String mm = minutes < 10 ? "0" + minutes : minutes + "";
         String ss = seconds < 10 ? "0" + seconds : seconds + "";
         return hh + ":" + mm + ":" + ss;
+    }
+
+    private void runElevationThread() {
+        new Thread() {
+            public void run() {
+                while (true){
+                    try {
+                        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.i("MainFragment", "Thread running!");
+                            }
+                        });
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
     }
 
 }

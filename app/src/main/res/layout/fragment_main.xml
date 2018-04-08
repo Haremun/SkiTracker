@@ -158,7 +158,8 @@
                     android:id="@+id/chronometer_time"
                     style="@style/TextViewBigger"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:textSize="27sp"/>
                 <LinearLayout
                     style="@style/InnerWrapper">
 
@@ -216,9 +217,21 @@
                 <TextView
                     style="@style/header"
                     android:text="@string/text_wysokosc"/>
-                <TextView
-                    style="@style/TextViewBigger"
-                    android:text="@string/text_0_wysokosc"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        style="@style/TextViewBigger"
+                        android:id="@+id/text_elevation"
+                        android:layout_marginEnd="5dp"
+                        android:textSize="27sp"
+                        android:text="@string/text_0_wysokosc"/>
+                    <TextView
+                        style="@style/TextViewBigger"
+                        android:textSize="14sp"
+                        android:text="@string/unit_elevation"/>
+                </LinearLayout>
+
                 <LinearLayout
                     style="@style/InnerWrapper">
                     <LinearLayout

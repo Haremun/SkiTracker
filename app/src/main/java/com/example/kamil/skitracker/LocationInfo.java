@@ -3,6 +3,9 @@ package com.example.kamil.skitracker;
 import android.location.Location;
 import android.util.Log;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+
 public class LocationInfo {
 
     private double currentLatitude = 0;
@@ -65,6 +68,5 @@ public class LocationInfo {
     public Location getCurrentLocation() {
         return currentLocation;
     }
-
 
 }

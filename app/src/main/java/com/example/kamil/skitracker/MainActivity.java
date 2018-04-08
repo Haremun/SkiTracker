@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         Permissions.askForPermissions(this);
         locationOptions = new LocationOptions(this, this);
 
-
         SetActionBar();
 
         navigationView = findViewById(R.id.nav_view);
@@ -111,8 +110,6 @@ public class MainActivity extends AppCompatActivity {
                         bottomNavigationView.setSelectedItemId(R.id.action_history);
                         break;
                     }
-
-
                 }
                 drawerLayout.closeDrawers();
                 return true;
