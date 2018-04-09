@@ -21,18 +21,13 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 
 import com.example.kamil.skitracker.GoogleElevationThread;
+import com.example.kamil.skitracker.Gui.ChronometerGui;
 import com.example.kamil.skitracker.LocationFragment;
 import com.example.kamil.skitracker.LocationInfo;
 import com.example.kamil.skitracker.LocationOptions;
 import com.example.kamil.skitracker.MathHelper;
 import com.example.kamil.skitracker.R;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -60,12 +55,14 @@ public class MainFragment extends Fragment implements LocationFragment {
     private TextView textDistance;
     private TextView textElevation;
 
-    private Chronometer chronometer;
+    private ChronometerGui chronometerGui;
+
     private GoogleElevationThread googleElevationThread;
 
     //private LocationInfo locationInfo;
     private boolean checkElevation = false;
 
+    //Fragment life cycle ----------------------------------------------------------
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,22 +85,16 @@ public class MainFragment extends Fragment implements LocationFragment {
         textMaxSpeed.setText(convertToSpannableString(0, 0), TextView.BufferType.SPANNABLE);
         textDistance.setText(convertToSpannableString(0, 1), TextView.BufferType.SPANNABLE);
 
-        chronometer = rootView.findViewById(R.id.chronometer_time);
-        chronometer.setText("00:00:00");
-        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-            public void onChronometerTick(Chronometer cArg) {
-                long time = SystemClock.elapsedRealtime() - cArg.getBase();
-                int h = (int)(time / 3600000);
-                int m = (int)(time - h * 3600000) / 60000;
-                int s = (int)(time - h * 3600000 - m * 60000) / 1000 ;
+        chronometerGui = new ChronometerGui(
+                (Chronometer) rootView.findViewById(R.id.chronometer_time),
+                (Chronometer)rootView.findViewById(R.id.chronoZjazd),
+                (Chronometer)rootView.findViewById(R.id.chronoWyjazd),
+                (Chronometer)rootView.findViewById(R.id.chronoRest));
 
-                cArg.setText(getStringFromTime(h, m, s));
-            }
-        });
+        chronometerGui.setChronometers();
 
         if (locationOptions.timerStarted()){
-            chronometer.setBase(locationOptions.getTimeOfUpdates());
-            chronometer.start();
+            chronometerGui.startChronometer(R.id.chronometer_time, locationOptions.getTimeOfUpdates());
         }
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.mm.yyyy", Locale.getDefault());
@@ -139,6 +130,7 @@ public class MainFragment extends Fragment implements LocationFragment {
         super.onDestroyView();
     }
 
+    //Interface functions ---------------------------------------------------------
     @Override
     public void Update(LocationInfo locationInfo) {
 
@@ -168,6 +160,14 @@ public class MainFragment extends Fragment implements LocationFragment {
     }
 
     @Override
+    public void setLocation(LocationOptions locationOptions) {
+        this.location = locationOptions.getLocation();
+        this.locationOptions = locationOptions;
+        Log.i("Tag", "Loc set");
+    }
+
+    //Menu on action bar -------------------------------------------------------------
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
         inflater.inflate(R.menu.action_bar_menu, menu);
@@ -178,13 +178,17 @@ public class MainFragment extends Fragment implements LocationFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_play:{
-                chronometer.setBase(SystemClock.elapsedRealtime());
-                chronometer.start();
-                //runElevationThread();
-                locationOptions.setTimeOfUpdates(SystemClock.elapsedRealtime());
-                locationOptions.setStartTimers(true);
-                locationOptions.startUpdates();
-                Log.i("MainFragment", "Button Clicked");
+                if(!locationOptions.timerStarted()){
+                    chronometerGui.startChronometer(R.id.chronometer_time);
+                    locationOptions.setTimeOfUpdates(SystemClock.elapsedRealtime());
+                    locationOptions.setStartTimers(true);
+                    locationOptions.startUpdates();
+                } else {
+                    chronometerGui.stopChrometer(R.id.chronometer_time);
+                    locationOptions.setStartTimers(false);
+                    locationOptions.stopUpdates();
+                }
+                Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
                 return true;
             }
         }
@@ -192,12 +196,15 @@ public class MainFragment extends Fragment implements LocationFragment {
     }
 
     @Override
-    public void setLocation(LocationOptions locationOptions) {
-        this.location = locationOptions.getLocation();
-        this.locationOptions = locationOptions;
-        Log.i("Tag", "Loc set");
+    public void onPrepareOptionsMenu(Menu menu) {
+        if(locationOptions.timerStarted())
+            menu.getItem(0).setIcon(R.drawable.ic_pause);
+        else
+            menu.getItem(0).setIcon(R.drawable.ic_music_player_play);
+        super.onPrepareOptionsMenu(menu);
     }
 
+    //private Methods ----------------------------------------------------------------
     private SpannableString convertToSpannableString(double number, int unit){
 
         int end = 1;
@@ -224,33 +231,6 @@ public class MainFragment extends Fragment implements LocationFragment {
             return String.format(Locale.US, "%.1f",number) + " km";
         else
             return String.format(Locale.US, "%.1f",number);
-    }
-
-    private String getStringFromTime(int hours, int minutes, int seconds){
-        String hh = hours < 10 ? "0" + hours : hours + "";
-        String mm = minutes < 10 ? "0" + minutes : minutes + "";
-        String ss = seconds < 10 ? "0" + seconds : seconds + "";
-        return hh + ":" + mm + ":" + ss;
-    }
-
-    private void runElevationThread() {
-        new Thread() {
-            public void run() {
-                while (true){
-                    try {
-                        Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.i("MainFragment", "Thread running!");
-                            }
-                        });
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
     }
 
 }

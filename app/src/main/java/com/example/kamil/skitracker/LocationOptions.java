@@ -123,6 +123,7 @@ public class LocationOptions {
             return;
         }
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, callback, null);
+
     }
 
     public void stopUpdates(){

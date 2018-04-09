@@ -29,8 +29,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_music_player_play" />
-                            <entry key="sourceFile" value="I:\Pobrane\music-player-play.svg" />
+                            <entry key="outputName" value="ic_record_circular_button" />
+                            <entry key="sourceFile" value="I:\Pobrane\record-circular-button.svg" />
                           </map>
                         </option>
                       </PersistentState>
