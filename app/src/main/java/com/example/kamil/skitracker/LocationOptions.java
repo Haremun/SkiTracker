@@ -61,7 +61,7 @@ public class LocationOptions {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
         callback = createLocationCallback();
-        locationRequest = createLocationRequest(1000, 500, LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        locationRequest = createLocationRequest(500, 500, LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -112,6 +112,7 @@ public class LocationOptions {
                     locationInfo.Update(location, newTime - oldTime);
                     currentFragment.Update(locationInfo);
                     myLocation = location;
+                    Log.i("LocationOptions", locationInfo.toString());
                 }
             }
         };

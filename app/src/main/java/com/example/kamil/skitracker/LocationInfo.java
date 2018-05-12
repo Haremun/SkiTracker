@@ -18,6 +18,9 @@ public class LocationInfo {
     private double oldSpeed = 0;
     private double distance = 0;
 
+    private double tempDistance;
+    private double tempTime;
+
     private int numberOfUpdates = 0;
 
     public void Update(Location location, double time){
@@ -25,7 +28,8 @@ public class LocationInfo {
 
         this.currentLocation = location;
 
-        double tempDistance = 0;
+        tempTime = time;
+        tempDistance = 0;
         if(currentLatitude > 0)
             tempDistance = MathHelper.calculateDistance(currentLatitude, currentLongitude, location.getLatitude(), location.getLongitude());
 
@@ -69,4 +73,20 @@ public class LocationInfo {
         return currentLocation;
     }
 
+    public double getTempDistance() {
+        return tempDistance;
+    }
+
+    public double getTempTime() {
+        return tempTime;
+    }
+    public String getLatLon(){
+        return currentLatitude + " " + currentLongitude;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + "current speed: " + currentSpeed + " lat: " + currentLatitude + " lon: " + currentLongitude +
+                " temp distance: " + tempDistance + " time: " + tempTime + "]";
+    }
 }

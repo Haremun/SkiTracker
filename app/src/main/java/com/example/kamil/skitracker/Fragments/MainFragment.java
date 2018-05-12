@@ -147,6 +147,7 @@ public class MainFragment extends Fragment implements LocationFragment {
         textMaxSpeed.setText(convertToSpannableString(locationInfo.getMaxSpeed(), 0), TextView.BufferType.SPANNABLE);
         textMaxSpeed.setTextColor(Color.BLACK);
 
+        //textAvSpeed.setText(convertToStringWithUnit(locationInfo.getAverageSpeed(), 0));
         textAvSpeed.setText(convertToStringWithUnit(locationInfo.getAverageSpeed(), 0));
         textAvSpeed.setTextColor(Color.BLACK);
 
