@@ -103,9 +103,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case R.id.action_history:{
-                        HistoryFragment historyFragment = new HistoryFragment();
+                        HistoryFragment loggerFragment = new HistoryFragment();
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.fragment_container, historyFragment);
+                        transaction.replace(R.id.fragment_container, loggerFragment);
                         transaction.commit();
                         bottomNavigationView.setSelectedItemId(R.id.action_history);
                         break;

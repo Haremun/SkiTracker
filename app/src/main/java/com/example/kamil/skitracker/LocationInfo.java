@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.text.DecimalFormat;
 
 public class LocationInfo {
 
@@ -28,10 +29,15 @@ public class LocationInfo {
 
         this.currentLocation = location;
 
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+
+
         tempTime = time;
         tempDistance = 0;
         if(currentLatitude > 0)
-            tempDistance = MathHelper.calculateDistance(currentLatitude, currentLongitude, location.getLatitude(), location.getLongitude());
+            tempDistance = MathHelper.calculateDistance(
+                    currentLatitude, currentLongitude,
+                    location.getLatitude(), location.getLongitude());
 
         oldSpeed += currentSpeed;
         distance += tempDistance / 1000;

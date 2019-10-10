@@ -91,10 +91,10 @@ public class LocationOptions {
     }
 
     @SuppressLint("RestrictedApi")
-    private LocationRequest createLocationRequest(int interval, int fastesInterval, int priority) {
+    private LocationRequest createLocationRequest(int interval, int fastestInterval, int priority) {
         LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(interval);
-        locationRequest.setFastestInterval(fastesInterval);
+        locationRequest.setFastestInterval(fastestInterval);
         locationRequest.setPriority(priority);
         return locationRequest;
     }
@@ -112,6 +112,7 @@ public class LocationOptions {
                     locationInfo.Update(location, newTime - oldTime);
                     currentFragment.Update(locationInfo);
                     myLocation = location;
+                    Logger.addLog("Location Updated");
                     Log.i("LocationOptions", locationInfo.toString());
                 }
             }

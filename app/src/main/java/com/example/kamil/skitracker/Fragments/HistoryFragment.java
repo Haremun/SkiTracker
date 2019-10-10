@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.kamil.skitracker.Logger;
 import com.example.kamil.skitracker.R;
 
 
@@ -16,6 +18,7 @@ import com.example.kamil.skitracker.R;
  */
 public class HistoryFragment extends Fragment {
 
+    TextView textView;
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -25,8 +28,19 @@ public class HistoryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false);
+        View view = inflater.inflate(R.layout.fragment_history, container, false);
+
+        textView = view.findViewById(R.id.textLogger);
+
+        return  view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        textView.setText("");
+        Logger.logsToTextView(textView);
+    }
 }

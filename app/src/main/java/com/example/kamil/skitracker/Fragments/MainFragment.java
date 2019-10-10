@@ -25,6 +25,7 @@ import com.example.kamil.skitracker.Gui.ChronometerGui;
 import com.example.kamil.skitracker.LocationFragment;
 import com.example.kamil.skitracker.LocationInfo;
 import com.example.kamil.skitracker.LocationOptions;
+import com.example.kamil.skitracker.Logger;
 import com.example.kamil.skitracker.MathHelper;
 import com.example.kamil.skitracker.R;
 
@@ -135,11 +136,13 @@ public class MainFragment extends Fragment implements LocationFragment {
     public void Update(LocationInfo locationInfo) {
 
         this.location = locationInfo.getCurrentLocation();
-        String[] strings = MathHelper.convertLatLngDecimalToDMS((float)this.location.getLatitude(), (float)this.location.getLongitude());
+        String[] strings = MathHelper.convertLatLngDecimalToDMS(
+                (float)this.location.getLatitude(), (float)this.location.getLongitude());
         textLen.setText(strings[0]);
         textLen.setTextColor(Color.BLACK);
         textLon.setText(strings[1]);
         textLon.setTextColor(Color.BLACK);
+        Logger.addLog((float)this.location.getLatitude() + " " + (float)this.location.getLongitude());
 
         textDistance.setText(convertToSpannableString(locationInfo.getDistance(), 1), TextView.BufferType.SPANNABLE);
         textDistance.setTextColor(Color.BLACK);
@@ -153,6 +156,7 @@ public class MainFragment extends Fragment implements LocationFragment {
 
         textCurrentSpeed.setText(convertToStringWithUnit(locationInfo.getCurrentSpeed(), 0));
         textCurrentSpeed.setTextColor(Color.BLACK);
+        Logger.addLog(convertToStringWithUnit(locationInfo.getCurrentSpeed(), 0));
 
         //textElevation.setText(lookingForAltitude(location.getLatitude(), location.getLongitude()));
         //textElevation.setTextColor(Color.BLACK);
